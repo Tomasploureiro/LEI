@@ -1,0 +1,19 @@
+9
+S -[S]
+C -[C,B,A]
+G3 -[G3,B,A]
+Caminho = [s,c,g3] = nos visitados
+
+S - [S]
+A - [A,B,C]
+E - [E,G1,B,C]
+G1 - [G1,G1,B,C]
+
+24
+A - [A]
+C - [C,B]
+G - [G,F,C',B]
+F - [F,C',B]
+
+Caminho = [A,C,F]
+Nós visitados = [A,C,G,F]

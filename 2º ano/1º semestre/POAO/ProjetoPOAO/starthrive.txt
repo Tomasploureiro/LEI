@@ -1,0 +1,10 @@
+Café-70-50-11000-3200-4-25000-Restauração-Cafe Tulipa-Aveiro-1.0956-0.7659
+Café-30-40-7000-2000-2-18000-Restauração-Cafe Avenida-Coimbra-0.8765-1.9876
+Pastelaria-100-120-20000-5000-6-40000-Restauração-Pastelaria Tropical-Coimbra-1.0102-1.4532
+Local-25-15-2000-1700-50-340-15000-9-30000-Restauração-Restaurante Algarve-Faro-0.5471-0.6123
+FastFood-60-10000-50-4500-115-350-14000-20-120000-Restauração-Taco Bell-Aveiro-1.6543-0.1252
+Frutaria-4500-45000-7500-Mercearia-Frutaria da Baixa-Porto-1.2332-0.1123
+Frutaria-3000-35000-5000-Mercearia-Frutaria da Ponte-Aveiro-1.9888-1.6625
+Mercado-hiper-500-400000-35000-Mercearia-Continente-Lisboa-1.2464-1.6533
+Mercado-super-300-200000-20000-Mercearia-Meu Super-Porto-1.3312-0.4334
+Mercado-mini-150-90000-9000-Mercearia-Mini Preco-Aveiro-0.9112-0.4641

@@ -1,0 +1,38 @@
+.data
+tab: .word 0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0X6F,0xF7,0x7C,0xB9,0x5E,0xF9,0xF1
+.text
+.globl main
+
+main:
+
+li $s0,0xFFFF0011
+li $s1,0xFFFF0010
+
+la $t0,tab
+li $t1,0
+
+la $t7,tab
+li $t6,0
+
+loop:
+	lw $t2,0($t7)
+	sb $t2,0($s0)
+	addi $t7,$t7,4
+	addi $t6,$t6,4
+	beq $t6,64,exit
+
+loop1:
+	lw $t2,0($t0)
+	sb $t2,0($s1)
+	addi $t0,$t0,4
+	addi $t1,$t1,4
+	bne $t1,64,loop1
+	
+reset:
+	la $t0,tab
+	li $t1,0
+	j loop
+	
+exit:
+	li $v0,10
+	syscall

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Googol - Backlinks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+            background-color: #f8f9fa;
+        }
+        .googol-logo {
+            font-family: 'Arial', sans-serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4285f4;
+            text-decoration: none;
+        }
+        .googol-logo span:nth-child(1) { color: #4285f4; }
+        .googol-logo span:nth-child(2) { color: #ea4335; }
+        .googol-logo span:nth-child(3) { color: #fbbc05; }
+        .googol-logo span:nth-child(4) { color: #4285f4; }
+        .googol-logo span:nth-child(5) { color: #34a853; }
+        .googol-logo span:nth-child(6) { color: #ea4335; }
+        .result-card {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .result-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .backlinks-title {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        .no-backlinks {
+            font-style: italic;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="mb-4">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <a href="/" class="googol-logo">
+                        <span>G</span><span>o</span><span>o</span><span>g</span><span>o</span><span>l</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="backlinks-title">Backlinks para: <a th:href="${url}" th:text="${url}" target="_blank"></a></h2>
+                            
+                            <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+                            
+                            <div th:if="${!backlinks.isEmpty()}">
+                                <div class="list-group">
+                                    <div class="card result-card" th:each="backlink : ${backlinks}">
+                                        <div class="card-body">
+                                            <a th:href="${backlink}" th:text="${backlink}" target="_blank" class="card-title h5"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div th:if="${backlinks.isEmpty() || backlinks[0] == 'Sem páginas a apontar para este URL.'}" class="no-backlinks">
+                                <p>Não foram encontrados backlinks para este URL.</p>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <a href="/" class="btn btn-outline-primary">Voltar para a página inicial</a>
+                                <a th:if="${url}" th:href="@{/search(query=${url})}" class="btn btn-outline-secondary">Pesquisar este URL</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-5 mb-3">
+            <p class="text-muted">© 2025 Googol - Sistema de Busca</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Googol - Estatísticas do Sistema</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .stats-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .stats-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo span:nth-child(1) { color: #4285f4; }
+        .logo span:nth-child(2) { color: #ea4335; }
+        .logo span:nth-child(3) { color: #fbbc05; }
+        .logo span:nth-child(4) { color: #4285f4; }
+        .logo span:nth-child(5) { color: #34a853; }
+        .logo span:nth-child(6) { color: #ea4335; }
+        .stats-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #0d6efd;
+        }
+        .stats-card h5 {
+            color: #0d6efd;
+            margin-bottom: 15px;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .barrel-stats {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .barrel-title {
+            font-weight: bold;
+            color: #0d6efd;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .barrel-info {
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-weight: bold;
+        }
+        .top-searches {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .top-searches li {
+            padding: 5px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #34a853;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="stats-header">
+            <div class="logo">
+                <span>G</span><span>o</span><span>o</span><span>g</span><span>o</span><span>l</span>
+                <span class="fs-6 text-secondary"> Estatísticas</span>
+            </div>
+            <div>
+                <a href="/" class="btn btn-outline-primary">Página Inicial</a>
+                <button id="refresh-stats" class="btn btn-primary ms-2">Atualizar</button>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="alert alert-info">
+                <div class="d-flex align-items-center">
+                    <span class="live-indicator"></span>
+                    <span>Dados em tempo real - atualiza automaticamente</span>
+                </div>
+            </div>
+
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            
+            <!-- Estatísticas gerais -->
+            <div id="general-stats">
+                <div th:if="${statistics}" id="stats-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="stats-card">
+                                <h5>Resumo do Sistema</h5>
+                                <div id="system-summary">
+                                    <!-- Será preenchido via WebSocket -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stats-card">
+                                <h5>10 Pesquisas Mais Comuns</h5>
+                                <ul class="top-searches" id="top-searches">
+                                    <!-- Será preenchido via WebSocket -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="mt-4 mb-3">Detalhes por Barrel</h4>
+                    <div id="barrels-container" class="row">
+                        <!-- Barrels serão adicionados aqui via JavaScript -->
+                    </div>
+
+                    <!-- Estatísticas completas em formato raw -->
+                    <div class="mt-4">
+                        <h5>Estatísticas Completas</h5>
+                        <pre id="raw-stats" th:text="${statistics}"></pre>
+                    </div>
+                </div>
+                
+                <div th:unless="${statistics}" class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Carregando...</span>
+                    </div>
+                    <p class="mt-3">Carregando estatísticas do sistema...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Conectar ao WebSocket
+            const socket = new SockJS('/googol-websocket');
+            const stompClient = Stomp.over(socket);
+            
+            stompClient.connect({}, function(frame) {
+                console.log('Conectado ao WebSocket: ' + frame);
+                
+                // Subscrever ao tópico de estatísticas
+                stompClient.subscribe('/topic/statistics', function(message) {
+                    const stats = JSON.parse(message.body);
+                    updateStatistics(stats);
+                });
+                
+                // Solicitar estatísticas atualizadas imediatamente
+                stompClient.send("/app/refreshStats", {}, {});
+            });
+            
+            // Botão para atualizar manualmente
+            document.getElementById('refresh-stats').addEventListener('click', function() {
+                if (stompClient && stompClient.connected) {
+                    stompClient.send("/app/refreshStats", {}, {});
+                }
+            });
+            
+            // Função para atualizar a interface com novas estatísticas
+            function updateStatistics(stats) {
+                console.log("Recebidas novas estatísticas:", stats);
+                
+                // Atualizar estatísticas em formato raw
+                if (stats.rawStats) {
+                    document.getElementById('raw-stats').textContent = stats.rawStats;
+                }
+                
+                // Analisar e exibir as estatísticas de forma mais amigável
+                parseAndDisplayStats(stats.rawStats);
+            }
+            
+            // Função para analisar o texto das estatísticas e exibir de forma estruturada
+            function parseAndDisplayStats(rawStats) {
+                if (!rawStats) return;
+                
+                const systemSummaryEl = document.getElementById('system-summary');
+                const topSearchesEl = document.getElementById('top-searches');
+                const barrelsContainerEl = document.getElementById('barrels-container');
+                
+                // Limpar containers existentes
+                systemSummaryEl.innerHTML = '';
+                topSearchesEl.innerHTML = '';
+                barrelsContainerEl.innerHTML = '';
+                
+                // Dividir por seções de Barrel
+                const barrelSections = rawStats.split('--- Estatísticas Barrel #');
+                
+                // Tratar estatísticas gerais
+                let generalInfo = barrelSections[0];
+                if (generalInfo) {
+                    systemSummaryEl.innerHTML = `<p>${generalInfo.replace(/\n/g, '<br>')}</p>`;
+                }
+                
+                // Processar cada Barrel
+                for (let i = 1; i < barrelSections.length; i++) {
+                    const barrelSection = barrelSections[i];
+                    const barrelNumber = i;
+                    
+                    // Criar card para o Barrel
+                    const barrelCard = document.createElement('div');
+                    barrelCard.className = 'col-md-6 mb-3';
+                    barrelCard.innerHTML = `
+                        <div class="barrel-stats">
+                            <div class="barrel-title">Barrel #${barrelNumber}</div>
+                            <div class="barrel-content">
+                                <pre>${barrelSection}</pre>
+                            </div>
+                        </div>
+                    `;
+                    
+                    barrelsContainerEl.appendChild(barrelCard);
+                    
+                    // Extrair e exibir as 10 pesquisas mais comuns
+                    const topSearchesMatch = barrelSection.match(/Top 10 termos mais pesquisados:\n([\s\S]*?)(?:\n\n|\n$|$)/);
+                    if (topSearchesMatch && topSearchesMatch[1] && i === 1) { // Usar apenas do primeiro Barrel para simplificar
+                        const topSearches = topSearchesMatch[1].split('\n').filter(line => line.trim() !== '');
+                        
+                        topSearchesEl.innerHTML = '';
+                        topSearches.forEach(search => {
+                            const li = document.createElement('li');
+                            li.textContent = search;
+                            topSearchesEl.appendChild(li);
+                        });
+                    }
+                }
+            }
+            
+            // Inicializar com dados existentes, se disponíveis
+            const rawStatsEl = document.getElementById('raw-stats');
+            if (rawStatsEl && rawStatsEl.textContent) {
+                parseAndDisplayStats(rawStatsEl.textContent);
+            }
+        });
+    </script>
+</body>
+</html>

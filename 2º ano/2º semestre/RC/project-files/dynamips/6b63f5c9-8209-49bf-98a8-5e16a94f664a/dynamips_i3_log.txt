@@ -1,0 +1,18 @@
+May 15 15:07:04.364 HYPERVISOR: Release 0.2.23-amd64/Linux (tag 2023010200)
+May 15 15:07:04.364 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 57683.
+May 15 15:07:04.371 HYPERVISOR: exec_cmd: hypervisor version 
+May 15 15:07:04.372 HYPERVISOR: exec_cmd: hypervisor working_dir /media/sf_RC/project-files/dynamips 
+May 15 15:07:04.373 GENERAL: working_dir=/media/sf_RC/project-files/dynamips
+May 15 15:07:04.373 HYPERVISOR: exec_cmd: hypervisor working_dir /media/sf_RC/project-files/dynamips/929aab33-6fc7-46a8-953b-901943545652 
+May 15 15:07:04.373 GENERAL: working_dir=/media/sf_RC/project-files/dynamips/929aab33-6fc7-46a8-953b-901943545652
+May 15 15:07:04.374 HYPERVISOR: exec_cmd: vm create R1 1 c2691 
+May 15 15:07:04.376 VM: VM R1 created.
+May 15 15:07:04.376 HYPERVISOR: exec_cmd: vm set_con_tcp_port R1 5010 
+May 15 15:07:04.377 HYPERVISOR: exec_cmd: c2691 get_mac_addr R1 
+May 15 15:07:04.378 HYPERVISOR: exec_cmd: vm set_disk0 R1 0 
+May 15 15:07:04.379 HYPERVISOR: exec_cmd: vm get_status R1 
+May 15 15:07:04.379 HYPERVISOR: exec_cmd: vm set_idle_pc R1 0x60bcf9f8 
+May 15 15:07:04.381 HYPERVISOR: exec_cmd: vm set_ios R1 /home/user/GNS3/images/IOS/c2691-adventerprisek9-mz.124-15.T14.image 
+May 15 15:07:04.382 HYPERVISOR: exec_cmd: c2691 set_mac_addr R1 c001.5895.0000 
+May 15 15:07:04.383 HYPERVISOR: exec_cmd: vm set_nvram R1 256 
+May 15 15:07:04.384 HYPERVISOR: exec_cmd: vm set_ram R1 192 

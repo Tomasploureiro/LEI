@@ -1,0 +1,3 @@
+C:/Users/User/Desktop/uni/SO/projetoSOv2/cmake-build-debug/CMakeFiles/projetoSOv2.dir
+C:/Users/User/Desktop/uni/SO/projetoSOv2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/User/Desktop/uni/SO/projetoSOv2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

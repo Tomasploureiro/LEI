@@ -1,0 +1,8 @@
+-> extrair caracteristicas
+-> comparar distancia entre vetores
+-> escolher as 20 mais proximas
+
+-> cada um vai ouvir as recomendacoes e vai avaliar numa escala de 1 a 5 (avalicao subjetiva)
+
+
+NOTA: NAO DEFENDEMOS NA PROXIMA SEMANA

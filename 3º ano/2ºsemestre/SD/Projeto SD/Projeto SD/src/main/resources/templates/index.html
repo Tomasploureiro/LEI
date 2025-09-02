@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Googol - Motor de Busca</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .logo {
+            font-size: 72px;
+            font-weight: bold;
+            color: #4285f4;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+        .logo span:nth-child(1) { color: #4285f4; }
+        .logo span:nth-child(2) { color: #ea4335; }
+        .logo span:nth-child(3) { color: #fbbc05; }
+        .logo span:nth-child(4) { color: #4285f4; }
+        .logo span:nth-child(5) { color: #34a853; }
+        .logo span:nth-child(6) { color: #ea4335; }
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 24px;
+            border: 1px solid #dfe1e5;
+            outline: none;
+            font-size: 16px;
+        }
+        .search-box:focus {
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+            border-color: rgba(223, 225, 229, 0);
+        }
+        .search-button {
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #3c4043;
+            font-size: 14px;
+            margin: 15px 4px;
+            padding: 10px 16px;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dadce0;
+            color: #202124;
+        }
+        .footer {
+            margin-top: 40px;
+            color: #70757a;
+            font-size: 14px;
+        }
+        .message {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 pt-5">
+        <div class="text-center mb-5">
+            <h1 class="logo">
+                <span>G</span><span>o</span><span>o</span><span>g</span><span>o</span><span>l</span>
+            </h1>
+            <p class="mb-4">Motor de Busca Distribuído</p>
+        </div>
+        
+        <!-- Mensagens de sucesso ou erro -->
+        <div th:if="${message}" class="message success text-center" th:text="${message}"></div>
+        <div th:if="${error}" class="message error text-center" th:text="${error}"></div>
+        
+        <div class="search-container">
+            <form action="/search" method="get">
+                <div class="mb-3">
+                    <input type="text" name="query" class="search-box" 
+                           placeholder="Pesquise no Googol..." required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="search-button">Pesquisar</button>
+                    <a href="/stats" class="search-button">Estatísticas</a>
+                </div>
+            </form>
+            
+            <hr class="my-4">
+            
+            <h5 class="mb-3">Adicionar URL para indexação</h5>
+            <form action="/add-url" method="post">
+                <div class="input-group mb-3">
+                    <input type="url" name="url" class="form-control" 
+                           placeholder="https://exemplo.com" required>
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                </div>
+            </form>
+        </div>
+        
+        <footer class="footer text-center">
+            <p>© 2025 Googol - Projeto de Sistemas Distribuídos</p>
+        </footer>
+    </div>
+    
+    <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

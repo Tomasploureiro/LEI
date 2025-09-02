@@ -1,0 +1,10 @@
+para corresr os programs jar e necessario correr o comando
+java -jar --enable-preview <jar>
+
+em que <jar> é o ficheiro a executar
+
+A ordem de execucao sera
+Downloaders
+SearchModule
+Barrels
+Cliente

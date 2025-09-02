@@ -1,0 +1,48 @@
+Artes
+Quem pintou a Mona Lisa?
+4
+Leonardo da Vinci
+Pablo Picasso
+Vincent van Gogh
+Claude Monet
+Solucao: Leonardo da Vinci
+
+Futebol
+Quem é o melhor jogador de todos os tempos?
+3
+Cristiano Ronaldo
+Messi 
+Pélé
+Solucao: Cristiano Ronaldo
+3
+7
+10
+9
+solucao: 7
+
+Natacao
+A natação é um desposto olímpico?
+2
+Verdadeiro
+Falso
+Solucao: Verdadeiro
+
+Ski
+Ski é um desporto olímpico?
+2
+Verdadeiro
+Falso
+Solucao: Verdadeiro
+
+Ciencias
+Qual é o elemento químico com símbolo 'O'?
+3
+Oxigênio
+Ouro
+Ósmio
+3
+Oxigênio
+Omen
+Orindio
+Solucao : Oxigenio
+
