@@ -1,0 +1,11 @@
+[
+    { "file": "file1.js", "author": "Alice", "TotalAuthors": 22, "complexity": 20, "changes": 15, "created": true },
+    { "file": "file2.js", "author": "Bob", "TotalAuthors": 4, "complexity": 10, "changes": 5, "created": true },
+    { "file": "file3.js", "author": "Alice", "TotalAuthors": 10, "complexity": 30, "changes": 25, "created": false },
+    { "file": "file4.js", "author": "Charlie", "TotalAuthors": 15, "complexity": 15, "changes": 10, "created": true },
+    { "file": "file5.js", "author": "Leo", "TotalAuthors": 8, "complexity": 5, "changes": 10, "created": false },
+    { "file": "file6.js", "author": "Andre", "TotalAuthors": 33, "complexity": 19, "changes": 0, "created": true },
+    { "file": "file7.js", "author": "Pedro", "TotalAuthors": 12, "complexity": 22, "changes": 18, "created": false },
+    { "file": "file8.js", "author": "Joao", "TotalAuthors": 9, "complexity": 35, "changes": 7, "created": true }
+  ]
+  

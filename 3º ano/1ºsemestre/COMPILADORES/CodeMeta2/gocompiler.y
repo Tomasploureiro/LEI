@@ -1,16 +1,16 @@
 %{
-/*
-    Author: Tomás Loureiro Nº2022234440
-*/
-#include "ast.h"
-#include <stdlib.h>
-#include <string.h>
+    /*
+        Author: Tomás Loureiro Nº2022234440
+    */
+    #include "ast.h"
+    #include <stdlib.h>
+    #include <string.h>
 
-int yylex(void);
-void yyerror(char*);
+    int yylex(void);
+    void yyerror(char*);
 
-struct node *program;
-extern char *my_strdup(const char *s);
+    struct node *program;
+    extern char *my_strdup(const char *s);
 
 %}
 

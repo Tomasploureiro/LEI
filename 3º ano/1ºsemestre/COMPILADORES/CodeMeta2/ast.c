@@ -3,7 +3,6 @@
 #include "ast.h"
 #include <string.h>
 
-// Create a node of a given category with a given lexical symbol
 struct node *new_node(enum category category, char *token) {
     struct node *new = malloc(sizeof(struct node));
     new->category = category;
@@ -14,7 +13,6 @@ struct node *new_node(enum category category, char *token) {
     return new;
 }
 
-// Append a node to the list of children of the parent node
 void add_child(struct node *parent, struct node *child) {
     if(parent == NULL || child == NULL){
         return;
@@ -29,7 +27,6 @@ void add_child(struct node *parent, struct node *child) {
     children->next = new;
 }
 
-// Remove the first child from the list of children of the parent node
 void remove_first_child(struct node *parent) {
     struct node_list *children = parent->children;
     if(children->next == NULL)
@@ -40,22 +37,17 @@ void remove_first_child(struct node *parent) {
 }
 
 
-// Names defined in ast.h
 const char *category_name[] = names;
 
-// Perform a depth-first search to print the AST
 void dfs(struct node *cur_node, int depth){
-    // No AST
     if(cur_node == NULL){
         return;
     }
 
-    // Add indentation according to the current depth
     for(int i = 0; i < depth; i++){
         printf("..");
     }    
     
-    // Print the category and the token (if it exists)
     if(cur_node->token == NULL){
         printf("%s\n", category_name[cur_node->category]);
     }
@@ -67,7 +59,6 @@ void dfs(struct node *cur_node, int depth){
         }
     }
     
-    // Visit all children
     if(cur_node->children == NULL){
         return;
     }
@@ -78,7 +69,6 @@ void dfs(struct node *cur_node, int depth){
     }
 }
 
-// Free the AST
 void free_ast (struct node * cur_node){
     if(cur_node == NULL){
         return;
@@ -101,7 +91,6 @@ void free_ast (struct node * cur_node){
     free(cur_node);
 }
 
-// free the AST
 void deallocate(struct node *node) {
     if(node != NULL) {
         struct node_list *child = node->children;
@@ -117,10 +106,7 @@ void deallocate(struct node *node) {
     }
 }
 
-/*
-Count the number of block elements in order to 
-determine whether or not the node is supperfluous
-*/
+
 int block_elements(struct node* cur_node){
     int count = 0;
     if(cur_node == NULL){
@@ -133,7 +119,6 @@ int block_elements(struct node* cur_node){
             count++;
         }
         else{
-            // If the child node is an auxiliary node, we need to count its children
             count += block_elements(child->node);
         }
     }
@@ -150,40 +135,32 @@ void remove_aux(struct node *parent) {
 
     while (current != NULL) {
         if (current->node->category == AUX) {
-            // The AUX node's children should go into it's parent's child list at the AUX node's position
             struct node_list *aux_children = current->node->children->next;
 
             if (aux_children != NULL) {
-                // Find the last AUX child
                 struct node_list *last_aux_child = aux_children;
                 while (last_aux_child->next != NULL) {
                     last_aux_child = last_aux_child->next;
                 }
 
-                // Link previous parent node to AUX node's first child
                 prev->next = aux_children;
 
-                // Link last AUX child to AUX node's next node in the parent's list
                 last_aux_child->next = current->next;
             } 
             else {
-                // The AUX node is a leaf
                 prev->next = current->next;
             }
 
-            // Free the AUX node and it's children
             free(current->node->children);
             free(current->node);
 
 
             struct node_list *temp = current;
-            current = prev->next; // Changed from current->next to prev->next
+            current = prev->next;
             free(temp);
 
-            // Only update prev if the current node was not removed
         } 
         else {
-            // Continue DFS
             remove_aux(current->node);
             prev = current;
             current = current->next;

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UC2.6.A Implementation (Scatter Plot)</title>
+    <link rel="stylesheet" href="template.css">
+</head>
+<body>
+  <!-- Container para os botões de filtros. -->
+  <div class="Filter">
+    <input type="button" id="fileSize" value="File Size">
+    <input type="button" id="fileType" value="File Type">
+    <input type="button" id="complexity" value="Complexity">
+    <input type="button" id="numChanges" value="Nº of Changes">
+    <input type="button" id="author" value="Author">
+  </div>
+  <div id="errorMessage" style="display: none; color: red; font-size: 14px;"></div>
+
+  <!-- Container para os botões de gráficos e gráfico. -->
+  <div class="Graph">
+    <div class="GraphButtons">
+      <input type="button" id="histogram" value="Histogram">
+      <input type="button" id="table" value="Table">
+      <input type="button" id="bubble" value="Bubble">
+      <input type="button" id="dispersion" value="Dispersion">
+      <input type="button" id="overtime" value="Overtime">
+    </div>
+
+    <!-- Sub-Container para o gráfico. -->
+    <div id="graph" class="GraphContainer"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="template_graph.js"></script>
+  <script src="template_button.js"></script>
+</body>
+</html>

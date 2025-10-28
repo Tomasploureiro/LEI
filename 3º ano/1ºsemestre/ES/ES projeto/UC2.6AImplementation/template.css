@@ -1,0 +1,75 @@
+/* Estilos para os filtros de botões */
+.Filter {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Layout principal do gráfico */
+  .Graph {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  /* Contêiner dos botões de gráfico */
+  .GraphButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  /* Contêiner do gráfico */
+  .GraphContainer {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+  }
+  
+  /* Estilos para botões */
+  .Filter input[type="button"],
+  .GraphButtons input[type="button"] {
+    width: 150px;
+    padding: 10px;
+    margin: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Efeitos de hover para botões */
+  .Filter input[type="button"]:hover,
+  .GraphButtons input[type="button"]:hover {
+    background-color: #dcdcdc;
+    transform: scale(1.05);
+  }
+  
+  /* Botões selecionados */
+  .Filter input[type="button"].selected,
+  .GraphButtons input[type="button"].selected {
+    background-color: #a9a9a9;
+    color: white;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 1200px) {
+    .Filter input,
+    .GraphButtons input[type="button"] {
+      width: 120px;
+      margin: 10px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .Filter input,
+    .GraphButtons input[type="button"] {
+      width: 100px;
+      margin: 5px;
+      font-size: 12px;
+    }
+  }
+  
